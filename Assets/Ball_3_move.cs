@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Ball_3_move : MonoBehaviour
 {
-    /*private float ball_y;
-    private int time_count;*/
-
     private float ini_y = 4f;
     private float floor_y = 0.5f;
     private float ball_y;
@@ -19,6 +16,8 @@ public class Ball_3_move : MonoBehaviour
 
     private int ball_s = 1;
 
+    private float ball_pow, turn_pow;
+
     void Start()
     {
         ball_g = (float)((ini_y - floor_y) / (turn_t * turn_t * 0.5));
@@ -26,21 +25,13 @@ public class Ball_3_move : MonoBehaviour
 
     void Update()
     {
-        /*time_count--;
-        if( time_count < -30 )
-        {
-            time_count = 30;
-        }
-        ball_y = time_count * time_count * -0.00388f + 4;*/
-
         ball_t += ball_s;
 
-        ani_g = (float)(ball_g / (float)System.Math.Sqrt(System.Math.Pow(turn_t, 3))) * (float)System.Math.Sqrt(System.Math.Pow(ball_t, 3));
-        //ani_g = (ball_g / (turn_t * turn_t)) * ball_t * ball_t;
-        //ani_g = ball_g / (ini_y - floor_y) * ball_y;
+        turn_pow = (float)System.Math.Abs(System.Math.Pow(turn_t, 3));
+        ball_pow = (float)System.Math.Abs(System.Math.Pow(ball_t, 3));
 
-        //Debug.Log(System.Math.Sqrt(System.Math.Pow(turn_t, 3)));
-
+        ani_g = (float)(ball_g / (float)System.Math.Sqrt(turn_pow)) * (float)System.Math.Sqrt(ball_pow);
+ 
         if (ball_t > turn_t || ball_t < 0) ball_s *= -1;
 
         ball_y = (float)(ini_y - (0.5f * ani_g * ball_t * ball_t));
